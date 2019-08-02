@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Wind: CustomStringConvertible {
+
+struct Wind: Textable {
     // MARK: - Properties
     private let direction: Direction
     private let speed: MeterPerSec
@@ -20,7 +21,7 @@ struct Wind: CustomStringConvertible {
     
 }
 // MARK: - Direction
-enum Direction: Int, CustomStringConvertible {
+enum Direction: Int, Textable {
     
     init?(angle: Double) {
         self.init(rawValue: (Int(angle) % 360) / 22)
@@ -91,7 +92,7 @@ enum Direction: Int, CustomStringConvertible {
     
 }
 // MARK: - Speed
-struct MeterPerSec: CustomStringConvertible {
+struct MeterPerSec: Textable {
     // MARK: - Properties
     static let symbol = "m/s"
     

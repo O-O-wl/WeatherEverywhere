@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Atmosphere: CustomStringConvertible {
+struct Atmosphere: Textable {
     // MARK: - Properties
     static let symbol = "hPa"
 

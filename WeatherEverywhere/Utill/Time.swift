@@ -7,3 +7,22 @@
 //
 
 import Foundation
+
+struct Time: Textable {
+    // MARK: - Properties
+    private var hour: Int
+    private var minute: Int
+    private var second: Int
+    private var meridiem: Meridiem
+    
+    var description: String {
+        return "\(meridiem) \(hour):\(minute)"
+    }
+}
+// MARK: - + Nested Type
+extension Time {
+    enum Meridiem {
+        case AM
+        case PM
+    }
+}

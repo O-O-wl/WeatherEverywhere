@@ -8,9 +8,8 @@
 
 import Foundation
 
-
-
-struct Temperature: CustomStringConvertible {
+struct Temperature: Textable {
+    // MARK: - Properties
     private var value: Int
     private var degree: Degree
     
@@ -18,22 +17,24 @@ struct Temperature: CustomStringConvertible {
         return "\(value)\(degree)"
     }
     
+    // MARK: - Methods
     mutating func convert(to anther: Degree) {
         self.value = self.degree.converting(to: anther)(self.value)
         self.degree = anther
     }
     
 }
-// MARK: - Degree
+// MARK: - + Nested Type 
 extension Temperature {
     
-    enum Degree {
+    enum Degree: CustomStringConvertible {
+        // MARK: - Cases
         case celsius
         case fahrenheit
         
+        // MARK: - Properties
         var symbol: String {
             switch self {
-                
             case .celsius:
                 return "℃"
             case .fahrenheit:
@@ -41,6 +42,11 @@ extension Temperature {
             }
         }
         
+        var description: String {
+            return self.symbol
+        }
+        
+        // MARK: - Methods
         func converting(to: Degree) -> (Int) -> Int {
             switch (self,to) {
             case (.celsius,.fahrenheit):

@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+struct Persentage: Textable {
+    // MARK: - Properties
+    static let symbol = "%"
+    
+    private var value : Double?
+    
+    var description: String {
+        return "\(get())\(Persentage.symbol)"
+    }
+    
+    // MARK: - Methods
+    func get() -> Int {
+        return Int((value ?? 0) * 100)
+    }
+}
