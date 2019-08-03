@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - SingleTone
-class UserDefaultsDAO {
+class UserDefaultsManager {
     
     private let saveKey = "locations"
     
