@@ -12,8 +12,11 @@ struct Precipitation: Textable {
     // MARK: - Properties
     static let symbol = "cm"
     
-    private let value: Int = 0
+    private let height: Double
     
-    var description: String
+    var description: String {
+        let heightString = String(format:"%.1f", height)
+        return "\(heightString) \(Precipitation.symbol)"
+    }
 
 }

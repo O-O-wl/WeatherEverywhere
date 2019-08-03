@@ -12,7 +12,7 @@ import Foundation
 struct Wind: Textable {
     // MARK: - Properties
     private let direction: Direction
-    private let speed: MeterPerSec
+    private let speed: MeterPerSecond
     
     var description: String {
         return "\(direction) \(speed)"
@@ -92,13 +92,14 @@ enum Direction: Int, Textable {
     
 }
 // MARK: - Speed
-struct MeterPerSec: Textable {
+struct MeterPerSecond: Textable {
     // MARK: - Properties
     static let symbol = "m/s"
     
     private var value: Double
     
     var description: String {
-        return "\(value) \(MeterPerSec.symbol)"
+        let valueString = String(format:"%.1f",value)
+        return "\(valueString) \(MeterPerSecond.symbol)"
     }
 }

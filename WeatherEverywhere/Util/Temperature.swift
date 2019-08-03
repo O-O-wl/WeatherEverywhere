@@ -18,9 +18,9 @@ struct Temperature: Textable {
     }
     
     // MARK: - Methods
-    mutating func convert(to anther: Degree) {
-        self.value = self.degree.converting(to: anther)(self.value)
-        self.degree = anther
+    mutating func convert(to another: Degree) {
+        self.value = self.degree.converting(to: another)(self.value)
+        self.degree = another
     }
     
 }

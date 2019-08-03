@@ -11,15 +11,15 @@ import Foundation
 struct Persentage: Textable {
     // MARK: - Properties
     static let symbol = "%"
+    private var value : Double
     
-    private var value : Double?
     
     var description: String {
-        return "\(get())\(Persentage.symbol)"
+        return "\(convert())\(Persentage.symbol)"
     }
     
     // MARK: - Methods
-    func get() -> Int {
-        return Int((value ?? 0) * 100)
+    private func convert() -> Int {
+        return Int((value) * 100)
     }
 }

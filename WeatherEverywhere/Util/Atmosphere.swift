@@ -12,9 +12,9 @@ struct Atmosphere: Textable {
     // MARK: - Properties
     static let symbol = "hPa"
 
-    private let value: Double?
+    private let value: Double
     
     var description: String {
-        return "\(Int(value ?? 0))\(Atmosphere.symbol)"
+        return "\(Int(value))\(Atmosphere.symbol)"
     }
 }
