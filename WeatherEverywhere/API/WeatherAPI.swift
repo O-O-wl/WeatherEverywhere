@@ -13,14 +13,18 @@ struct WeatherAPI {
     static private let baseURL =  URL(string: "https://api.darksky.net/forecast")
     static private let apiKey = { Bundle.main.infoDictionary?["APIKey"] as? String ?? "" }()
     
-    static func requestForecast(query: Queriable, completion: @escaping (ForcastDTO) -> Void ) {
-        let reqURL = baseURL?.appendingPathComponent(apiKey).appendingPathComponent(query.toQuery())
-        
-        DispatchQueue.main.async {
-            guard let data = try? Data(contentsOf: reqURL!) else { return }
-            print(String(data: data,encoding: .utf8)!)
-            let forcast = try! JSONDecoder().decode(ForcastDTO.self, from: data)
-            completion(forcast)
+    static func requestForecast(querys: [Queriable], completion: @escaping (ForcastDTO) -> Void ) {
+        while let query = querys.first {
+            let reqURL = baseURL?.appendingPathComponent(apiKey).appendingPathComponent(query.toQuery())
+            
+            DispatchQueue.main.async {
+                guard
+                    let reqURL = reqURL,
+                    let data = try? Data(contentsOf: reqURL),
+                    let forcast = try? JSONDecoder().decode(ForcastDTO.self, from: data)
+                    else { return }
+                completion(forcast)
+            }
         }
     }
 }

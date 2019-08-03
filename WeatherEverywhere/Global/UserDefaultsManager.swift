@@ -11,18 +11,12 @@ import Foundation
 // MARK: - SingleTone
 class UserDefaultsManager {
     
-    private let saveKey = "locations"
-    
-    // MARK: - Properties
-    static var shared: UserDefaultsDAO = UserDefaultsDAO()
-    
-    
-    private init() {
-        
-    }
+    private static let saveKey = "locations"
     
     // MARK: - Methods
-    func load() -> [LocationModel]? {
+    private init() {}
+    
+    static func load() -> [LocationModel]? {
         guard
             let data = UserDefaults.standard.data(forKey: saveKey),
             let loadedModels = try? PropertyListDecoder().decode([LocationModel].self, from: data)
@@ -30,7 +24,7 @@ class UserDefaultsManager {
         return loadedModels
     }
     
-    func save(models: [LocationModel]) {
+    static func save(models: [LocationModel]) {
         let dataToSave = try? PropertyListEncoder().encode(models)
         UserDefaults.standard.set(dataToSave, forKey: saveKey)
         UserDefaults.standard.synchronize()

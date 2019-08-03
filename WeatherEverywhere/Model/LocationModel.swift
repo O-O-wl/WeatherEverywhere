@@ -7,7 +7,26 @@
 //
 
 import UIKit
+import MapKit
 
-class LocationModel: NSObject {
+protocol Queriable {
+    typealias Query  = String
+    func toQuery() -> Query
+}
 
+struct LocationModel: Codable, Queriable {
+    private let latitude: Double
+    private let longitude: Double
+    
+    init (latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    func toQuery() -> Query {
+        let query = "\(latitude),\(longitude)"
+        return query
+    }
+    
+    
 }
