@@ -1,33 +1,52 @@
+////
+////  TemperatureTests.swift
+////  WeatherEverywhereTests
+////
+////  Created by 이동영 on 03/08/2019.
+////  Copyright © 2019 부엉이. All rights reserved.
+////
 //
-//  TemperatureTests.swift
-//  WeatherEverywhereTests
+//import XCTest
 //
-//  Created by 이동영 on 03/08/2019.
-//  Copyright © 2019 부엉이. All rights reserved.
+//class UtilTests: XCTestCase {
 //
-
-import XCTest
-
-class UtilTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
-}
+//    func testTemperature() {
+//        let value = 36.6
+//        let expected = "36℃"
+//        
+//        let result = Temperature(value: Int(value))
+//        
+//        XCTAssertEqual(result.description, expected)
+//    }
+//    
+//    func testTime() {
+//        let value = 36.6
+//        let expected = "36℃"
+//        
+//        let result = Temperature(value: Int(value))
+//        
+//        XCTAssertEqual(result.description, expected)
+//    }
+//    
+//    func testPersentage() {
+//        let value = 0.9
+//        let expected = "90%"
+//        
+//        let result = Persentage.in
+//        XCTAssertEqual(result.description, expected)
+//    }
+//    
+//    func testWind() {
+//        let value = 36.6
+//        let expected = "북 36.6 m/s"
+//        
+//        let result = Wind(speed: value, bearing: 360)
+//        
+//        XCTAssertEqual(result.description, expected)
+//    }
+//    
+//    func testAtmosphere() {
+//        
+//    }
+//
+//}

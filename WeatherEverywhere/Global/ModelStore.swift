@@ -8,40 +8,41 @@
 
 import Foundation
 
-protocol Modelable { }
+protocol Storeable { }
 
 protocol ModelStoreable : class {
-    associatedtype Model: Modelable
+    associatedtype Model: Storeable
     
-    func store(_: Model)
+    func store(_: Model?)
     func count() -> Int
     func remove(at: Int)
     
 }
 
 
-class ModelStore: ModelStoreable {
-    
-    typealias Model = WeatherDetailModel
-    
-    // MARK: - Properties
-    static var shared = ModelStore()
-    
-    private var models = [Model]()
-    
-    // MARK: - Methods
-    private init() {}
-    
-    func store(_ model: Model) {
-        models.append(model)
-    }
-    
-    func count() -> Int {
-        return models.count
-    }
-    
-    func remove(at index: Int) {
-        models.remove(at: index)
-    }
-    
-}
+//class ModelStore: ModelStoreable {
+//    
+//    typealias Model = WeatherDetailModel
+//    
+//    // MARK: - Properties
+//    static var shared = ModelStore()
+//    public var isEmpty: Bool { return count() <= 0 }
+//    private var models = [Model]()
+//    
+//    // MARK: - Methods
+//    private init() {}
+//    
+//    func store(_ model: Model?) {
+//        guard let model = model else { return }
+//        models.append(model)
+//    }
+//    
+//    func count() -> Int {
+//        return models.count
+//    }
+//    
+//    func remove(at index: Int) {
+//        models.remove(at: index)
+//    }
+//    
+//}

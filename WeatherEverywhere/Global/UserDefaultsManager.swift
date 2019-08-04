@@ -8,7 +8,6 @@
 
 import Foundation
 
-// MARK: - SingleTone
 class UserDefaultsManager {
     
     private static let saveKey = "locations"
@@ -16,17 +15,17 @@ class UserDefaultsManager {
     // MARK: - Methods
     private init() {}
     
-    static func load() -> [LocationModel]? {
+    static func load() -> [LocationModel] {
         guard
-            let data = UserDefaults.standard.data(forKey: saveKey),
-            let loadedModels = try? PropertyListDecoder().decode([LocationModel].self, from: data)
-            else { return nil }
-        return loadedModels
+            let loadedData = UserDefaults.standard.data(forKey: saveKey),
+            let models = try? PropertyListDecoder().decode([LocationModel].self, from: loadedData)
+            else { return [] }
+        return models
     }
     
     static func save(models: [LocationModel]) {
-        let dataToSave = try? PropertyListEncoder().encode(models)
-        UserDefaults.standard.set(dataToSave, forKey: saveKey)
+        let savingData = try? PropertyListEncoder().encode(models)
+        UserDefaults.standard.set(savingData, forKey: saveKey)
         UserDefaults.standard.synchronize()
     }
     

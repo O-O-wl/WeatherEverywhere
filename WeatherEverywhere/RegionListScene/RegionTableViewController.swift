@@ -30,8 +30,9 @@ class RegionTableViewController: UITableViewController {
     }
     
     @IBAction func fahrenheitButtonDidTap(_ sender: Any) {
-        WeatherAPI.requestForecast(query: LocationModel(latitude: 37.1, longitude: 127.9)) { (_) in
+        WeatherAPI.requestForecast(queriable: LocationModel(title: "",latitude: 37.1, longitude: 127.9)) { (f) in
             // 성공
+            print(f)
             let alert = UIAlertController(title: "Thread.isMainThread", message: "\(Thread.isMainThread)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "\(Date())", style: .cancel, handler: nil ))
             self.present(alert, animated: true, completion: {} )

@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct Summary: Textable {
+    private let content: String
+    
+    var description: String {
+        return content
+    }
+    
+    init(_ content: String) {
+        self.content = content
+    }
+}

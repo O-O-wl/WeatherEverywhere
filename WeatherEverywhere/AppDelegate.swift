@@ -16,9 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        if let loaded = UserDefaultsManager.load() {
-            WeatherAPI.requestForecast(querys: loaded, completion: { ModelStore($0) } )
+        let loaded = UserDefaultsManager.load()
+        loaded.forEach {
+            local in
+            WeatherAPI.requestForecast(queriable: local) {
+                print(DTOParser.parse(forcastDTO: $0, title: local.description))
+            }
         }
+//        if (!loaded.isEmpty) {
+//            WeatherAPI.requestForecast(queriables: loaded, completion: { ModelStore.shared.store( Parser.parse(forcastDTO:$0, title: )) })
+//        }
         return true
     }
     

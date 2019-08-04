@@ -9,16 +9,18 @@
 import UIKit
 import MapKit
 
-protocol Queriable {
-    typealias Query  = String
-    func toQuery() -> Query
-}
 
-struct LocationModel: Codable, Queriable {
+struct LocationModel: Codable, Queriable, Storeable, Textable {
+    private let title: String
     private let latitude: Double
     private let longitude: Double
     
-    init (latitude: Double, longitude: Double) {
+    var description: String {
+        return title
+    }
+    
+    init (title: String, latitude: Double, longitude: Double) {
+        self.title = title
         self.latitude = latitude
         self.longitude = longitude
     }
@@ -27,6 +29,5 @@ struct LocationModel: Codable, Queriable {
         let query = "\(latitude),\(longitude)"
         return query
     }
-    
     
 }

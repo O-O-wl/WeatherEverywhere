@@ -12,6 +12,7 @@ class SuggestionCell: UITableViewCell {
     
     static let reuseID = "SuggestionCellReuseID"
     
+    // MARK: - Methods
     override func awakeFromNib() {
         super.awakeFromNib()
     }

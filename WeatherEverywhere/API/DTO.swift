@@ -16,8 +16,8 @@ struct ForcastDTO: Codable {
     let hourly: WeathersDTO
     let daily: WeathersDTO
 }
-
-enum Icon: String, Codable {
+//
+enum IconDTO: String, Codable {
     case clearDay = "clear-day"
     case cloudy = "cloudy"
     case partlyCloudyDay = "partly-cloudy-day"
@@ -32,7 +32,7 @@ enum Icon: String, Codable {
 
 // MARK: - WeatherDTO
 struct WeatherDTO: Codable {
-    let icon: Icon
+    let icon: IconDTO
     
     let time: Double
     

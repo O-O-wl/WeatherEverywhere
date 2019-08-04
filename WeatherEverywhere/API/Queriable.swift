@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+protocol Queriable {
+    typealias Query  = String
+    
+    func toQuery() -> Query
+}

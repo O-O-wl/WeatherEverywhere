@@ -9,6 +9,7 @@
 import UIKit
 
 extension LocalSearcher: UITableViewDataSource {
+    // MARK: - Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locals.count
     }
@@ -17,8 +18,11 @@ extension LocalSearcher: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: SuggestionCell.reuseID, for: indexPath)
         guard let suggestionCell = cell as? SuggestionCell else { return cell }
         let row = indexPath.row
-        suggestionCell.textLabel?.text = locals[row].placemark.title
+
+        let currentPlacemark = locals[row].placemark
+        suggestionCell.textLabel?.text = currentPlacemark.address
         return suggestionCell
     }
     
 }
+

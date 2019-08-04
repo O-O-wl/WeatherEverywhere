@@ -21,7 +21,7 @@ class SearchResultTableViewController: UITableViewController {
         self.tableView.dataSource = searcher
     }
     
-    func setupSearchController() {
+    private func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -29,18 +29,19 @@ class SearchResultTableViewController: UITableViewController {
         searchController.searchBar.barStyle = .blackTranslucent
         searchController.searchBar.barTintColor = .white
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
     }
     
     // MARK: - IBActions
-    
     @IBAction func cancelButtonDidTap(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
 }
+// MARK: - + UISearchResultsUpdating
 extension SearchResultTableViewController: UISearchResultsUpdating {
-    
+    // MARK: - Methods
     func updateSearchResults(for searchController: UISearchController) {
         searcher.search(for: searchController.searchBar.text , complete: { self.tableView.reloadData() }) 
     }

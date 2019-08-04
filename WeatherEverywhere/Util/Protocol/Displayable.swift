@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 protocol Displayable {
-    var description: UIImage { get }
+    var description: UIImage? { get }
 }

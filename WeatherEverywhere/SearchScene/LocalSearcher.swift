@@ -14,34 +14,32 @@ class LocalSearcher: NSObject {
     var localSearch = MKLocalSearch.init(request: MKLocalSearch.Request())
     var locals = [MKMapItem]()
 
-    func search(for query: String?, complete: (() -> Void)? = nil){
+    func search(for query: String?, complete: (() -> Void)? = nil) {
         guard query != nil else { return }
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = query
         search(using: searchRequest, complete ?? {})
     }
     
-    private func search(using request: MKLocalSearch.Request, _ complete: @escaping () -> Void){
+    private func search(using request: MKLocalSearch.Request, _ complete: @escaping () -> Void) {
         localSearch = MKLocalSearch(request: request)
-        localSearch.start(completionHandler: {
+        localSearch.start {
             res, err in
+            guard let res = res else { return }
             self.locals.removeAll()
-            res?.mapItems.forEach{ self.locals.append($0) }
+            self.locals.append(contentsOf: res.mapItems )
             complete()
-        })
+        }
     }
 }
-extension LocalSearcher: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locals.count
-    }
+
+extension MKPlacemark {
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestionCell.reuseID, for: indexPath)
-        guard let suggestionCell = cell as? SuggestionCell else { return cell }
-        let row = indexPath.row
-        suggestionCell.textLabel?.text = locals[row].placemark.title
-        return suggestionCell
+    var address: String? {
+        let components = [ self.country, self.administrativeArea, self.locality, self.subLocality ]
+        return components
+            .compactMap { $0 }
+            .joined(separator: " ")
     }
     
 }

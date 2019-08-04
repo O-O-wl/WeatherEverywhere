@@ -8,21 +8,44 @@
 
 import Foundation
 
-protocol DailyWeatherModelable {
-    var day: Day { get }
-    var icon: Icon { get }
-    var temperatureMax: Temperature { get }
-    var temperatureMin: Temperature { get }
+// - MARK: - ForcastModelable
+protocol ForcastModelable {
+    var location: LocationModel? { get }
+    var current: CurrentWeatherModelable? { get }
+    var hourly: [HourlyWeatherModelable]? { get }
+    var daily: [DailyWeatherModelable]? { get }
 }
 
+// - MARK: - CurrentWeatherModelable
+protocol CurrentWeatherModelable {
+    var summary: Textable? { get }
+    var temperature: Textable? { get }
+    var day: Textable? { get }
+    var temperatureMax: Textable? { get }
+    var temperatureMin: Textable? { get }
+    var sunriseTime: Textable? { get }
+    var sunsetTime: Textable? { get }
+    var precipIntensity: Textable? { get }
+    var precipProbability: Textable? { get }
+    var humidity: Textable? { get }
+    var pressure: Textable? { get }
+    var wind: Textable? { get }
+    var uv: Textable? { get }
+    var visibility: Textable? { get }
+    var apparentTemperature: Textable? { get }
+}
+
+// - MARK: - HourlyWeatherModelable
 protocol HourlyWeatherModelable {
-    var time: Time { get }
-    var icon: Icon { get }
-    var temperature: Temperature { get }
+    var time: Textable? { get }
+    var icon: Displayable? { get }
+    var temperature: Textable? { get }
 }
 
-protocol ForcastModelable: DailyWeatherModelable, HourlyWeatherModelable {
-    var location: LocationModel { get }
-    var hourly: [HourlyWeatherModelable] { get }
-    var daily: [DailyWeatherModelable] { get }
+// - MARK: - DailyWeatherModelable
+protocol DailyWeatherModelable {
+    var day: Textable? { get }
+    var icon: Displayable? { get }
+    var temperatureMax: Textable? { get }
+    var temperatureMin: Textable? { get }
 }
