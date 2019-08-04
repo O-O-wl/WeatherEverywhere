@@ -8,13 +8,17 @@
 
 import Foundation
 
-struct Atmosphere: Textable {
+struct Pressure: Textable {
     // MARK: - Properties
     static let symbol = "hPa"
 
     private let value: Double
     
+    init(_ value: Double) {
+        self.value = value
+    }
+    
     var description: String {
-        return "\(Int(value))\(Atmosphere.symbol)"
+        return "\(Int(value))\(Pressure.symbol)"
     }
 }
