@@ -9,10 +9,12 @@ import UIKit
 import Foundation
 
 struct ICON: Displayable {
+    private static let prefix: String = "ICON"
     let resourceName: String
     
     var description: UIImage? {
-        return UIImage(named: resourceName)
+        let imageName = ICON.prefix + resourceName
+        return UIImage(named: imageName)
     }
     
     init(_ resourceName: String) {
