@@ -8,19 +8,17 @@
 
 import UIKit
 
-class SearchResultDataSource: NSObject {
-    var suggestions = [String]()
-    
+extension LocalSearcher: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return suggestions.count
+        return locals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SuggestionCell.reuseID, for: indexPath)
         guard let suggestionCell = cell as? SuggestionCell else { return cell }
         let row = indexPath.row
-        suggestionCell.textLabel?.text = suggestions[row]
-       return suggestionCell
+        suggestionCell.textLabel?.text = locals[row].placemark.title
+        return suggestionCell
     }
     
 }
