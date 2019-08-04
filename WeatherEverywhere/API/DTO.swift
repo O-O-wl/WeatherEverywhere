@@ -7,30 +7,14 @@
 
 import Foundation
 
+
 // MARK: - ForcastDTO
 struct ForcastDTO: Codable {
     let latitude, longitude: Double
     let timezone: String
-    let currently: CurrentlyDTO
-    let hourly: Hourly
-    let daily: DailyDTO
-    let offset: Int
-}
-
-// MARK: - Currently
-struct CurrentlyDTO: Codable {
-    let time: Double
-    let summary: String
-    let icon: Icon
-    let precipIntensity, precipProbability: Double //밀리미터
-    let precipType: Icon?
-    let temperature, apparentTemperature, humidity: Double
-    let pressure:Double
-    let windSpeed, windGust: Double
-    let windBearing: Int
-    let cloudCover: Double
-    let uvIndex: Int
-    let visibility: Double
+    let currently: WeatherDTO
+    let hourly: WeathersDTO
+    let daily: WeathersDTO
 }
 
 enum Icon: String, Codable {
@@ -46,47 +30,37 @@ enum Icon: String, Codable {
     case fog = "fog"
 }
 
-// MARK: - Daily
-struct DailyDTO: Codable {
-    let summary: String
+// MARK: - WeatherDTO
+struct WeatherDTO: Codable {
     let icon: Icon
-    let data: [DatumDTO]
-}
-
-// MARK: - Datum
-struct DatumDTO: Codable {
+    
     let time: Double
+    
     let summary: String
-    let icon: Icon
-    let sunriseTime, sunsetTime: Double
+    
+    let sunriseTime, sunsetTime: Double?
+    
     let precipIntensity: Double
-    let precipProbability: Double // 강수확률
-    let precipType: Icon
-    let temperatureHigh: Double
-    let temperatureHighTime: Int
-    let temperatureLow: Double
-    let temperatureLowTime: Int
-    let apparentTemperatureHigh: Double
-    let apparentTemperatureHighTime: Int
-    let apparentTemperatureLow: Double
-    let apparentTemperatureLowTime: Int
-    let humidity, pressure, windSpeed: Double
-    let windGust: Double
+    let precipProbability: Double
+    
+    let humidity: Double
+    let pressure: Double
+    
+    let windSpeed: Double
     let windBearing: Int
-    let cloudCover: Double
+    
     let uvIndex: Int
     let visibility: Double
-    let temperatureMin: Double
-    let temperatureMax: Double
-    let apparentTemperatureMin: Double
-    let apparentTemperatureMinTime: Int
-    let apparentTemperatureMax: Double
-    let apparentTemperatureMaxTime: Int
+    
+    let temperature: Double?
+    let apparentTemperature: Double?
+    
+    let temperatureMin: Double?
+    let temperatureMax: Double?
+    
 }
 
-// MARK: - Hourly
-struct Hourly: Codable {
-    let summary: String
-    let icon: Icon
-    let data: [CurrentlyDTO]
+// MARK: - WeathersDTO
+struct WeathersDTO: Codable {
+    let data: [WeatherDTO]
 }
