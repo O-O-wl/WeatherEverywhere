@@ -13,16 +13,17 @@ struct Temperature: Textable {
     private var value: Double
     private var degree: Degree
     
+    var description: String {
+        let valueString = String(format: "%.1f", value)
+        return valueString
+    }
+    
+    // MARK: - Methods
     init(_ value: Double, _ degree: Degree = .celsius) {
         self.value = value
         self.degree = degree
     }
     
-    var description: String {
-        return "\(value)\(degree)"
-    }
-    
-    // MARK: - Methods
     mutating func convert(to another: Degree) {
         self.value = self.degree.converting(to: another)(self.value)
         self.degree = another

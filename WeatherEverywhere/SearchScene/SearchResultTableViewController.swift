@@ -19,18 +19,19 @@ class SearchResultTableViewController: UITableViewController {
         super.viewDidLoad()
         setupSearchController()
         self.tableView.dataSource = searcher
+        self.tableView.delegate = searcher
     }
     
     private func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+//        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         searchController.searchBar.barStyle = .blackTranslucent
         searchController.searchBar.barTintColor = .white
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        definesPresentationContext = true
+//        definesPresentationContext = true
     }
     
     // MARK: - IBActions

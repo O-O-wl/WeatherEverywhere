@@ -8,6 +8,9 @@
 
 import Foundation
 
+// - MARK: - TotalModelable
+typealias TotalModelable = ForcastModelable & CurrentWeatherModelable & HourlyWeatherModelable & DailyWeatherModelable & WeatherListModelable
+
 // - MARK: - ForcastModelable
 protocol ForcastModelable {
     var location: LocationModel? { get }
@@ -16,11 +19,20 @@ protocol ForcastModelable {
     var daily: [DailyWeatherModelable]? { get }
 }
 
+protocol WeatherListModelable {
+    var time: Textable? { get }
+    var location: LocationModel? { get }
+    var temperature: Textable? { get }
+    var wallPaper: Displayable? { get }
+}
+
 // - MARK: - CurrentWeatherModelable
 protocol CurrentWeatherModelable {
     var summary: Textable? { get }
     var temperature: Textable? { get }
     var day: Textable? { get }
+    var time: Textable? { get }
+    var wallPaper: Displayable? { get }
     var temperatureMax: Textable? { get }
     var temperatureMin: Textable? { get }
     var sunriseTime: Textable? { get }
@@ -32,7 +44,7 @@ protocol CurrentWeatherModelable {
     var wind: Textable? { get }
     var uv: Textable? { get }
     var visibility: Textable? { get }
-    var apparentTemperature: Textable? { get }
+    var apparentTemperature: Textable? { get}
 }
 
 // - MARK: - HourlyWeatherModelable
@@ -49,3 +61,4 @@ protocol DailyWeatherModelable {
     var temperatureMax: Textable? { get }
     var temperatureMin: Textable? { get }
 }
+

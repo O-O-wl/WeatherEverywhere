@@ -17,11 +17,12 @@ struct Persentage: Textable {
         return "\(convert())\(Persentage.symbol)"
     }
     
+    
+    // MARK: - Methods
     init(_ value: Double) {
         self.value = value
     }
     
-    // MARK: - Methods
     private func convert() -> Int {
         return Int((value) * 100)
     }

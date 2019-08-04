@@ -9,12 +9,13 @@
 import Foundation
 
 struct Summary: Textable {
+    // MARK: - Properties
     private let content: String
     
     var description: String {
         return content
     }
-    
+    // MARK: - Methods
     init(_ content: String) {
         self.content = content
     }

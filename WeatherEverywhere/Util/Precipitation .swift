@@ -11,16 +11,15 @@ import Foundation
 struct Precipitation: Textable {
     // MARK: - Properties
     static let symbol = "cm"
-    
     private let height: Double
-    
-    init(_ height: Double) {
-        self.height = height
-    }
     
     var description: String {
         let heightString = String(format:"%.1f", height)
         return "\(heightString) \(Precipitation.symbol)"
     }
-
+    
+    // MARK: - Methods
+    init(_ height: Double) {
+        self.height = height
+    }
 }

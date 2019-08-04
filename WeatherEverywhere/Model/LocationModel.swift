@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 
 
-struct LocationModel: Codable, Queriable, Storeable, Textable {
+struct LocationModel: Codable, Queriable, Saveable, Textable {
+    
     private let title: String
     private let latitude: Double
     private let longitude: Double

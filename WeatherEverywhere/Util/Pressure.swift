@@ -11,14 +11,15 @@ import Foundation
 struct Pressure: Textable {
     // MARK: - Properties
     static let symbol = "hPa"
-
     private let value: Double
-    
-    init(_ value: Double) {
-        self.value = value
-    }
     
     var description: String {
         return "\(Int(value))\(Pressure.symbol)"
     }
+    
+    // MARK: - Methods
+    init(_ value: Double) {
+        self.value = value
+    }
+    
 }

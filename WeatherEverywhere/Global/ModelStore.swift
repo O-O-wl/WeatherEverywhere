@@ -8,10 +8,14 @@
 
 import Foundation
 
-protocol Storeable { }
+// MARK: - Storeable
+protocol Saveable { }
 
-protocol ModelStoreable : class {
-    associatedtype Model: Storeable
+// MARK: - ModelStoreable
+protocol ModelStoreable: class {
+    associatedtype Model: TotalModelable
+    
+    var isEmpty: Bool { get }
     
     func store(_: Model?)
     func count() -> Int
@@ -19,30 +23,33 @@ protocol ModelStoreable : class {
     
 }
 
-
-//class ModelStore: ModelStoreable {
-//    
-//    typealias Model = WeatherDetailModel
-//    
-//    // MARK: - Properties
-//    static var shared = ModelStore()
-//    public var isEmpty: Bool { return count() <= 0 }
-//    private var models = [Model]()
-//    
-//    // MARK: - Methods
-//    private init() {}
-//    
-//    func store(_ model: Model?) {
-//        guard let model = model else { return }
-//        models.append(model)
-//    }
-//    
-//    func count() -> Int {
-//        return models.count
-//    }
-//    
-//    func remove(at index: Int) {
-//        models.remove(at: index)
-//    }
-//    
-//}
+// MARK: - ModelStore
+class ModelStore {
+    
+    // MARK: - Properties
+    static var shared = ModelStore()
+    private var models = [ForcastModelable]()
+    
+    public var isEmpty: Bool { return count() <= 0 }
+    
+    // MARK: - Methods
+    private init() {}
+    
+    func store(_ model: ForcastModelable?) {
+        guard let model = model else { return }
+        models.append(model)
+    }
+    
+    func getAll() -> [ForcastModelable] {
+        return models
+    }
+    
+    func count() -> Int {
+        return models.count
+    }
+    
+    func remove(at index: Int) {
+        models.remove(at: index)
+    }
+    
+}

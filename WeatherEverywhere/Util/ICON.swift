@@ -9,14 +9,16 @@ import UIKit
 import Foundation
 
 struct ICON: Displayable {
-    private static let prefix: String = "ICON"
+    // MARK: - Properties
+    private static let suffix: String = ".png"
     let resourceName: String
     
     var description: UIImage? {
-        let imageName = ICON.prefix + resourceName
+        let imageName = resourceName + ICON.suffix
         return UIImage(named: imageName)
     }
     
+    // MARK: - Methods
     init(_ resourceName: String) {
         self.resourceName = resourceName
     }

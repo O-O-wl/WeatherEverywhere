@@ -21,6 +21,7 @@ struct Time: Textable {
         return "\(meridiem) \(hour):\(minute)"
     }
     
+    // MARK: - Methods
     init(_ unixTime: TimeInterval) {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
         let calendar = Calendar.current
@@ -36,15 +37,17 @@ struct Time: Textable {
 extension Time {
     
     enum Meridiem: String, Textable {
+        // MARK: - Cases
+        case AM = "AM"
+        case PM = "PM"
+        
+        // MARK: - Properties
         var description: String {
             switch self {
             case .AM: return "오전"
             case .PM: return "오후"
             }
         }
-        
-        case AM = "AM"
-        case PM = "PM"
         
     }
 }

@@ -9,8 +9,10 @@
 import Foundation
 
 enum Day: Int, Textable {
+    // MARK: - Case
     case sunday, monday, tuesday, wednesday, thursday, friday, saturday
     
+    // MARK: - Properties
     var description: String {
         switch self {
         case .sunday:
@@ -30,6 +32,7 @@ enum Day: Int, Textable {
         }
     }
     
+    // MARK: - Methods
     init(_ unixTime: TimeInterval) {
         let date = Date.init(timeIntervalSince1970: unixTime)
         let dayIndex = Calendar.current.component(.day, from: date)

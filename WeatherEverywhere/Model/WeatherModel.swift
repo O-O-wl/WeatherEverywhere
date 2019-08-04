@@ -9,13 +9,14 @@
 import UIKit
 import Foundation
 
-struct WeatherModel: ForcastModelable, CurrentWeatherModelable,HourlyWeatherModelable, DailyWeatherModelable {
+struct WeatherModel: TotalModelable, Saveable {
     
     var location: LocationModel?
     var temperature: Textable?
     var temperatureMax: Textable?
     var temperatureMin: Textable?
     var icon: Displayable?
+    var wallPaper: Displayable?
     var background: Displayable?
     var day: Textable?
     var time: Textable?
@@ -36,6 +37,7 @@ struct WeatherModel: ForcastModelable, CurrentWeatherModelable,HourlyWeatherMode
     
     init(location: LocationModel? = nil,
          icon: IconDTO? = nil,
+         wallPaper: IconDTO? = nil,
          time: Time? = nil,
          day: Day? = nil,
          summary: Summary? = nil,
@@ -57,7 +59,8 @@ struct WeatherModel: ForcastModelable, CurrentWeatherModelable,HourlyWeatherMode
          hourly: [HourlyWeatherModelable]? = []) {
         
         self.location = location
-        self.icon = ICON(icon?.rawValue ?? "Default")
+        self.icon = ICON(icon?.rawValue ?? "default")
+        self.wallPaper = Wallpaper(icon?.rawValue ?? "default")
         self.time = time
         self.day = day
         self.summary = summary
@@ -78,30 +81,4 @@ struct WeatherModel: ForcastModelable, CurrentWeatherModelable,HourlyWeatherMode
         self.daily = daily
         self.hourly = hourly
     }
-    
-    
 }
-/// - Todo: 삭제
-
-//
-//    var current: CurrentWeatherModelable?
-//    let location: LocationModel?
-//    let icon: Icon?
-//    let time: Time?
-//    let day: Textable?
-//    let summary: String?
-//    let sunriseTime, sunsetTime: Time?
-//    let precipIntensity: Precipitation?
-//    let precipProbability: Persentage?
-//    let humidity: Persentage?
-//    let pressure: Pressure?
-//    let wind: Wind?
-//    let uv: UV?
-//    let visibility: Visibility?
-//    let temperature: Temperature?
-//    let apparentTemperature: Temperature?
-//    let temperatureMax: Temperature?
-//    let temperatureMin: Temperature?
-//    var daily: [DailyWeatherModelable]?
-//    var hourly: [HourlyWeatherModelable]?
-//

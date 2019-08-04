@@ -9,12 +9,14 @@
 import Foundation
 
 struct UV: Textable {
+    // MARK: - Properties
     private let level: Int
     
     var description: String {
         return String(level)
     }
     
+    // MARK: - Methods
     init(_ level: Int) {
         self.level = level
     }

@@ -10,24 +10,22 @@ import UIKit
 import MapKit
 
 struct WeatherAPI {
-    static private let baseURL =  URL(string: "https://api.darksky.net")!
-    static private let apiKey = { Bundle.main.infoDictionary?["APIKey"] as? String ?? "" }()
+    private static let baseURL =  URL(string: "https://api.darksky.net")!
+    private static let apiKey = { Bundle.main.infoDictionary?["APIKey"] as? String ?? "" }()
     
-    static func requestForecast(queriable: Queriable, completion: @escaping (ForcastDTO) -> Void ) {
+    static func request(queriable: Queriable, completion: @escaping (ApiDTO) -> Void ) {
         DispatchQueue.main.async {
             guard
                 let url = makeURL(query: queriable.toQuery()),
                 let data = try? Data(contentsOf: url),
-                let forcast = try? JSONDecoder().decode(ForcastDTO.self, from: data)
+                let forcast = try? JSONDecoder().decode(ApiDTO.self, from: data)
                 else {
                     assertionFailure("JSON 데이터 로드 실패")
                     return }
-            
             completion(forcast)
         }
     }
     
-    /// - Todo:
     private static func makeURL(query: String) -> URL? {
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
         urlComponents?.path = "/forecast/\(apiKey)/\(query)"

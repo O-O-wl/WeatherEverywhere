@@ -9,14 +9,17 @@ import UIKit
 import Foundation
 
 struct Wallpaper: Displayable {
-    private static let prefix: String = "Wallpaper"
+    // MARK: - Properties
+    private static let prefix = "bg_"
+    private static let suffix = ".jpg"
     private let resourceName: String
     
     var description: UIImage? {
-        let imageName = Wallpaper.prefix + resourceName
+        let imageName = Wallpaper.prefix + resourceName + Wallpaper.suffix
         return UIImage(named: imageName)
     }
     
+    // MARK: - Methods
     init(_ resourceName: String) {
         self.resourceName = resourceName
     }

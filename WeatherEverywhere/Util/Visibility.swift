@@ -9,6 +9,7 @@
 import Foundation
 
 struct Visibility: Textable {
+    // MARK: - Properties
     static let symbol = "km"
     private let distance: Double
     
@@ -17,6 +18,7 @@ struct Visibility: Textable {
         return "\(distanceString)\(Visibility.symbol)"
     }
     
+    // MARK: - Methods
     init(_ distance: Double) {
         self.distance = distance
     }
