@@ -14,4 +14,9 @@ struct UV: Textable {
     var description: String {
         return String(level)
     }
+    
+    init(_ level: Int) {
+        self.level = level
+    }
 }
+

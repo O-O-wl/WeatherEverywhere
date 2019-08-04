@@ -17,5 +17,9 @@ struct Visibility: Textable {
         return "\(distanceString)\(Visibility.symbol)"
     }
     
+    init(_ distance: Double) {
+        self.distance = distance
+    }
+    
 }
 

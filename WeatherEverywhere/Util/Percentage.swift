@@ -13,9 +13,12 @@ struct Persentage: Textable {
     static let symbol = "%"
     private var value : Double
     
-    
     var description: String {
         return "\(convert())\(Persentage.symbol)"
+    }
+    
+    init(_ value: Double) {
+        self.value = value
     }
     
     // MARK: - Methods

@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 struct Time: Textable {
     // MARK: - Properties
     private var hour: Int
@@ -15,7 +17,11 @@ struct Time: Textable {
     private var second: Int
     private var meridiem: Meridiem
     
-    init(unixTime: TimeInterval) {
+    var description: String {
+        return "\(meridiem) \(hour):\(minute)"
+    }
+    
+    init(_ unixTime: TimeInterval) {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
         let calendar = Calendar.current
         
@@ -24,10 +30,6 @@ struct Time: Textable {
         self.second = calendar.component(.second, from: date)
         self.meridiem = hour > 12 ? .PM : .AM
         self.hour = hour%12
-    }
-    
-    var description: String {
-        return "\(meridiem) \(hour):\(minute)"
     }
 }
 // MARK: - + Nested Type

@@ -14,6 +14,10 @@ struct Precipitation: Textable {
     
     private let height: Double
     
+    init(_ height: Double) {
+        self.height = height
+    }
+    
     var description: String {
         let heightString = String(format:"%.1f", height)
         return "\(heightString) \(Precipitation.symbol)"

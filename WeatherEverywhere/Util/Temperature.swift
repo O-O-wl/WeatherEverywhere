@@ -10,8 +10,13 @@ import Foundation
 
 struct Temperature: Textable {
     // MARK: - Properties
-    private var value: Int
+    private var value: Double
     private var degree: Degree
+    
+    init(_ value: Double, _ degree: Degree = .celsius) {
+        self.value = value
+        self.degree = degree
+    }
     
     var description: String {
         return "\(value)\(degree)"
@@ -47,15 +52,15 @@ extension Temperature {
         }
         
         // MARK: - Methods
-        func converting(to: Degree) -> (Int) -> Int {
+        func converting(to: Degree) -> (Double) -> Double {
             switch (self,to) {
             case (.celsius,.fahrenheit):
-                return { c in Int(Double(c) * 1.8 + 32) }
+                return { c in (c * 1.8) + 32 }
             case (.fahrenheit,.celsius):
-                return { i in Int(Double(i-32)/1.8) }
+                return { f in (f - 32) / 1.8 }
             case (.celsius,.celsius):
-                return { i in i }
-            case (.fahrenheit,.fahrenheit): return { i in i }
+                return { c in c }
+            case (.fahrenheit,.fahrenheit): return { f in f }
             }
         }
     }

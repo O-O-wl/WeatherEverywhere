@@ -14,17 +14,39 @@ struct Wind: Textable {
     private let direction: Direction
     private let speed: MeterPerSecond
     
+    init(speed: Double, bearing: Int) {
+//        self.speed = MeterPerSec?ond.init(
+        self.direction = Direction(angle: bearing) ?? .NO
+        self.speed = MeterPerSecond(speed)
+    }
+    
     var description: String {
         return "\(direction) \(speed)"
     }
     
     
 }
+// MARK: - Speed
+struct MeterPerSecond: Textable {
+    // MARK: - Properties
+    static let symbol = "m/s"
+    
+    private var value: Double
+    
+    init(_ value: Double) {
+        self.value = value
+    }
+    
+    var description: String {
+        let valueString = String(format:"%.1f",value)
+        return "\(valueString) \(MeterPerSecond.symbol)"
+    }
+}
 // MARK: - Direction
 enum Direction: Int, Textable {
     
-    init?(angle: Double) {
-        self.init(rawValue: (Int(angle) % 360) / 22)
+    init?(angle: Int) {
+        self.init(rawValue: (angle % 360) / 22)
     }
     // MARK: - Cases
     case NO = -1
@@ -87,19 +109,5 @@ enum Direction: Int, Textable {
         case .NNW:
             return "북북서"
         }
-    }
-    
-    
-}
-// MARK: - Speed
-struct MeterPerSecond: Textable {
-    // MARK: - Properties
-    static let symbol = "m/s"
-    
-    private var value: Double
-    
-    var description: String {
-        let valueString = String(format:"%.1f",value)
-        return "\(valueString) \(MeterPerSecond.symbol)"
     }
 }
