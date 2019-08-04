@@ -8,9 +8,10 @@
 
 import Foundation
 
-struct Parser {
+struct DTOParser {
+    
     static func parse(forcastDTO: ForcastDTO, title: String) -> ForcastModelable? {
-        let forcastModel = WeatherModel2(
+        let forcastModel = WeatherModel(
             location: LocationModel(
                 title: title,
                 latitude: forcastDTO.latitude,
@@ -21,31 +22,11 @@ struct Parser {
         return forcastModel
     }
     
-    static func parse(dailyDTO: WeatherDTO) -> DailyWeatherModelable {
-        let dailyModel = WeatherModel2(
-            icon: dailyDTO.icon,
-            day: Day(dailyDTO.time),
-            temperatureMax: Temperature.init(dailyDTO.temperatureMax ?? 0),
-            temperatureMin: Temperature(dailyDTO.temperatureMin ?? 0)
-        )
-        
-        return dailyModel
-    }
-    
-    static func parse(hourlyDTO: WeatherDTO) -> HourlyWeatherModelable {
-        let hourlyModel = WeatherModel2(
-            icon: hourlyDTO.icon,
-            time: Time(hourlyDTO.time),
-            temperature: Temperature(hourlyDTO.temperature ?? 0)
-        )
-        return hourlyModel
-    }
-    
     static func parse(currentDTO: WeatherDTO) -> CurrentWeatherModelable {
-        let currentModel = WeatherModel2(
-            summary: currentDTO.summary,
-            sunriseTime: Time.init(currentDTO.sunriseTime ?? 0),
-            sunsetTime: Time.init(currentDTO.sunsetTime ?? 0),
+        let currentModel = WeatherModel(
+            summary: Summary(currentDTO.summary),
+            sunriseTime: Time(currentDTO.sunriseTime ?? 0),
+            sunsetTime: Time(currentDTO.sunsetTime ?? 0),
             precipIntensity: Precipitation(currentDTO.precipIntensity),
             precipProbability: Persentage(currentDTO.precipProbability),
             humidity: Persentage(currentDTO.humidity),
@@ -57,7 +38,28 @@ struct Parser {
             apparentTemperature: Temperature(currentDTO.apparentTemperature ?? 0),
             temperatureMax: Temperature(currentDTO.temperatureMax ?? 0),
             temperatureMin: Temperature(currentDTO.temperatureMin ?? 0)
-            )
+        )
         return currentModel
     }
+    
+    static func parse(hourlyDTO: WeatherDTO) -> HourlyWeatherModelable {
+        let hourlyModel = WeatherModel(
+            icon: hourlyDTO.icon,
+            time: Time(hourlyDTO.time),
+            temperature: Temperature(hourlyDTO.temperature ?? 0)
+        )
+        return hourlyModel
+    }
+    
+    static func parse(dailyDTO: WeatherDTO) -> DailyWeatherModelable {
+        let dailyModel = WeatherModel(
+            icon: dailyDTO.icon,
+            day: Day(dailyDTO.time),
+            temperatureMax: Temperature(dailyDTO.temperatureMax ?? 0),
+            temperatureMin: Temperature(dailyDTO.temperatureMin ?? 0)
+        )
+        
+        return dailyModel
+    }
+    
 }
