@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct Parser {
+    static func parse(dto: ForcastDTO) -> ForcastModelable? {
+        return nil
+    }
+    static func parse(_ daily: WeatherDTO ) -> DailyWeatherModelable? {
+        return nil
+    }
+    static func parse(_ hourly: WeatherDTO ) -> HourlyWeatherModelable? {
+        return nil
+    }
+}
