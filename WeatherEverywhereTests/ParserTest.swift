@@ -10,25 +10,29 @@ import XCTest
 @testable import WeatherEverywhere
 
 class ParserTest: XCTestCase {
+    // Given
+    lazy var forcastDTO: ForcastDTO = { ForcastDTO.init(latitude: 37.01, longitude: 127.01, timezone: "Asia/Seoul", currently: weatherDTO, hourly: WeathersDTO.init(data: [weatherDTO]), daily: WeathersDTO.init(data: [weatherDTO])) }()
+    
+    let weatherDTO = WeatherDTO.init(icon: .clearDay, time: 1509993277, summary: "맑음", sunriseTime: 1509993277, sunsetTime: 1509993277, precipIntensity: 10, precipProbability: 0.8, humidity: 0.7, pressure: 1015, windSpeed: 3, windBearing: 360, uvIndex: 1, visibility: 9.7, temperature: 36.6, apparentTemperature: 40.5, temperatureMin: 22, temperatureMax: 49)
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testParseDailyModel() {
+        //When
+        let result = Parser.parse(dailyDTO: weatherDTO)
+        //Then
+        XCTAssertNotNil(result)
+    }
+    
+    func testParseHourlyModel() {
+        //When
+        let result = Parser.parse(hourlyDTO: weatherDTO)
+        //Then
+        XCTAssertNotNil(result)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testParseForcastModel() {
+        //When
+        let result = Parser.parse(forcastDTO: forcastDTO,title: "강남구")
+        //Then
+        XCTAssertNotNil(result)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
