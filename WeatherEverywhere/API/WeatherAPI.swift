@@ -10,21 +10,29 @@ import UIKit
 import MapKit
 
 struct WeatherAPI {
-    static private let baseURL =  URL(string: "https://api.darksky.net/forecast")
+    static private let baseURL =  URL(string: "https://api.darksky.net")!
     static private let apiKey = { Bundle.main.infoDictionary?["APIKey"] as? String ?? "" }()
     
-    static func requestForecast(querys: [Queriable], completion: @escaping (ForcastDTO) -> Void ) {
-        while let query = querys.first {
-            let reqURL = baseURL?.appendingPathComponent(apiKey).appendingPathComponent(query.toQuery())
+    static func requestForecast(queriable: Queriable, completion: @escaping (ForcastDTO) -> Void ) {
+        DispatchQueue.main.async {
+            guard
+                let url = makeURL(query: queriable.toQuery()),
+                let data = try? Data(contentsOf: url),
+                let forcast = try? JSONDecoder().decode(ForcastDTO.self, from: data)
+                else {
+                    assertionFailure("JSON 데이터 로드 실패")
+                    return }
             
-            DispatchQueue.main.async {
-                guard
-                    let reqURL = reqURL,
-                    let data = try? Data(contentsOf: reqURL),
-                    let forcast = try? JSONDecoder().decode(ForcastDTO.self, from: data)
-                    else { return }
-                completion(forcast)
-            }
+            completion(forcast)
         }
+    }
+    
+    /// - Todo:
+    private static func makeURL(query: String) -> URL? {
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+        urlComponents?.path = "/forecast/\(apiKey)/\(query)"
+        
+        urlComponents?.queryItems = [URLQueryItem(name: "lang", value: "ko"),URLQueryItem(name: "si", value: "temperature")]
+        return urlComponents?.url
     }
 }
