@@ -5,33 +5,36 @@
 //  Created by 이동영 on 02/08/2019.
 //  Copyright © 2019 부엉이. All rights reserved.
 //
-
+import MapKit
 import UIKit
 
-class SearchResultTableViewController: UITableViewController {
+class SearchResultTableViewController: UIViewController {
     
     // MARK: - Properties
     private var searchController: UISearchController!
-    private var searcher = LocalSearcher()
+    @IBOutlet weak var searchItemTableView: UITableView!
+    
+    var localSearch = MKLocalSearch.init(request: MKLocalSearch.Request())
+    var locals = [MKMapItem]()
+
     
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
-        self.tableView.dataSource = searcher
-        self.tableView.delegate = searcher
+        self.searchItemTableView.dataSource = self
+        self.searchItemTableView.delegate = self
     }
     
     private func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-//        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         searchController.searchBar.barStyle = .blackTranslucent
         searchController.searchBar.barTintColor = .white
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-//        definesPresentationContext = true
     }
     
     // MARK: - IBActions
@@ -39,11 +42,4 @@ class SearchResultTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-}
-// MARK: - + UISearchResultsUpdating
-extension SearchResultTableViewController: UISearchResultsUpdating {
-    // MARK: - Methods
-    func updateSearchResults(for searchController: UISearchController) {
-        searcher.search(for: searchController.searchBar.text , complete: { self.tableView.reloadData() }) 
-    }
 }

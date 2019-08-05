@@ -19,6 +19,7 @@ protocol ForcastModelable {
     var daily: [DailyWeatherModelable]? { get }
 }
 
+// - MARK: - WeatherListModelable
 protocol WeatherListModelable {
     var time: Textable? { get }
     var location: LocationModel? { get }
@@ -27,7 +28,8 @@ protocol WeatherListModelable {
 }
 
 // - MARK: - CurrentWeatherModelable
-protocol CurrentWeatherModelable {
+protocol CurrentWeatherModelable: WeatherListModelable {
+    var location: LocationModel? { get }
     var summary: Textable? { get }
     var temperature: Textable? { get }
     var day: Textable? { get }

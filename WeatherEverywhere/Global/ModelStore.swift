@@ -12,36 +12,53 @@ import Foundation
 protocol Saveable { }
 
 // MARK: - ModelStoreable
-protocol ModelStoreable: class {
+protocol ModelStoreable: NSObject {
     associatedtype Model: TotalModelable
     
     var isEmpty: Bool { get }
-    
     func store(_: Model?)
     func count() -> Int
     func remove(at: Int)
     
 }
 
+protocol Subject: NSObject {
+    func register(_ observer: Observer)
+    func remove(_ observer: Observer);
+    func notify();
+}
+
+protocol Observer: NSObject {
+    func update()
+}
+
 // MARK: - ModelStore
-class ModelStore {
+class ModelStore: NSObject {
     
     // MARK: - Properties
     static var shared = ModelStore()
     private var models = [ForcastModelable]()
+    private var observers = [Observer]()
     
     public var isEmpty: Bool { return count() <= 0 }
     
     // MARK: - Methods
-    private init() {}
+    private override init() {
+        super.init()
+    }
     
     func store(_ model: ForcastModelable?) {
         guard let model = model else { return }
         models.append(model)
+        notify()
     }
     
-    func getAll() -> [ForcastModelable] {
-        return models
+    func getCurrentModels() -> [CurrentWeatherModelable] {
+        return models.compactMap { $0.current }
+    }
+    
+    func getForcastModels(at index: Int) -> ForcastModelable {
+        return models[index]
     }
     
     func count() -> Int {
@@ -50,6 +67,23 @@ class ModelStore {
     
     func remove(at index: Int) {
         models.remove(at: index)
+        notify()
     }
     
 }
+// MARK: - Subject
+extension ModelStore: Subject {
+    
+    func register(_ observer: Observer) {
+        observers.append(observer)
+    }
+    
+    func remove(_ observer: Observer) {
+        observers.removeAll{ $0 == observer }
+    }
+    
+    func notify() {
+        observers.forEach { $0.update() }
+    }
+}
+

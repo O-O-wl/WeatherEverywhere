@@ -13,7 +13,7 @@ struct WeatherAPI {
     private static let baseURL =  URL(string: "https://api.darksky.net")!
     private static let apiKey = { Bundle.main.infoDictionary?["APIKey"] as? String ?? "" }()
     
-    static func request(queriable: Queriable, completion: @escaping (ApiDTO) -> Void ) {
+    static func request(queriable: Queriable, completion: @escaping (ApiDTO) -> Void )  {
         DispatchQueue.main.async {
             guard
                 let url = makeURL(query: queriable.toQuery()),

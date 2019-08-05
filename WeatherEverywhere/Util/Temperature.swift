@@ -24,9 +24,10 @@ struct Temperature: Textable {
         self.degree = degree
     }
     
-    mutating func convert(to another: Degree) {
+    mutating func convert(to another: Degree) -> Temperature {
         self.value = self.degree.converting(to: another)(self.value)
         self.degree = another
+        return self
     }
     
 }

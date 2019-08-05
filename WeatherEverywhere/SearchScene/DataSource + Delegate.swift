@@ -7,34 +7,39 @@
 //
 
 import UIKit
+import MapKit
 
-extension LocalSearcher: UITableViewDataSource {
+// MARK: - + MKPlacemark extension
+extension MKPlacemark {
+    
+    var address: String? {
+        let components = [ self.country, self.administrativeArea, self.locality, self.subLocality ]
+        return components
+            .compactMap { $0 }
+            .joined(separator: " ")
+    }
+    
+}
+
+
+// MARK: - + DataSource
+extension SearchResultTableViewController: UITableViewDataSource {
     // MARK: - Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestionCell.reuseID, for: indexPath)
-        guard let suggestionCell = cell as? SuggestionCell else { return cell }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let row = indexPath.row
-        
         let currentPlacemark = locals[row].placemark
-        suggestionCell.textLabel?.text = currentPlacemark.address
-        return suggestionCell
+        cell.textLabel?.text = currentPlacemark.address
+        return cell
     }
     
 }
-
-extension LocalSearcher: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("editingStyle")
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        print("didDeselectRowAt")
-    }
+// MARK: - + Delegate
+extension SearchResultTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return indexPath

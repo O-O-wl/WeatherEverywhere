@@ -35,16 +35,11 @@ enum IconDTO: String, Codable {
 // MARK: - WeatherDTO
 struct WeatherDTO: Codable {
     let icon: IconDTO?
-    
     let time: Double
-    
     let summary: String
-    
     let sunriseTime, sunsetTime: Double?
-    
     let precipIntensity: Double
     let precipProbability: Double
-    
     let humidity: Double
     let pressure: Double
     

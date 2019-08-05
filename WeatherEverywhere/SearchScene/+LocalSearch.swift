@@ -9,11 +9,16 @@
 import UIKit
 import MapKit
 
-class LocalSearcher: NSObject {
-    
-    var localSearch = MKLocalSearch.init(request: MKLocalSearch.Request())
-    var locals = [MKMapItem]()
 
+// MARK: - + UISearchResultsUpdating
+extension SearchResultTableViewController: UISearchResultsUpdating {
+    // MARK: - Methods
+    func updateSearchResults(for searchController: UISearchController) {
+        search(for: searchController.searchBar.text , complete: { self.searchItemTableView.reloadData() })
+    }
+}
+
+extension SearchResultTableViewController {
     func search(for query: String?, complete: (() -> Void)? = nil) {
         guard query != nil else { return }
         let searchRequest = MKLocalSearch.Request()
@@ -31,15 +36,4 @@ class LocalSearcher: NSObject {
             complete()
         }
     }
-}
-
-extension MKPlacemark {
-    
-    var address: String? {
-        let components = [ self.country, self.administrativeArea, self.locality, self.subLocality ]
-        return components
-            .compactMap { $0 }
-            .joined(separator: " ")
-    }
-    
 }

@@ -23,7 +23,13 @@ class WeatherCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+    }
+    
+    func sync(model: WeatherListModelable) {
+        currentTimeLabel.text = model.time?.description
+        locationLabel.text = model.location?.description
+        temperatureLabel.text = model.temperature?.description
+        weatherImageView.image = model.wallPaper?.description
     }
     
 }

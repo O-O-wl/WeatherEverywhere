@@ -11,11 +11,14 @@ import Foundation
 class UserDefaultsManager {
     
     private static let saveKey = "locations"
-    
     // MARK: - Methods
-    private init() {}
+    private init() { }
     
-    static func load() -> [LocationModel] {
+    static func setUp(complete: (LocationModel) -> Void) {
+        UserDefaultsManager.load().forEach { complete($0) }
+    }
+    
+    private static func load() -> [LocationModel] {
         guard
             let loadedData = UserDefaults.standard.data(forKey: saveKey),
             let models = try? PropertyListDecoder().decode([LocationModel].self, from: loadedData)
@@ -24,9 +27,11 @@ class UserDefaultsManager {
     }
     
     static func save(models: [LocationModel]) {
+        
         let savingData = try? PropertyListEncoder().encode(models)
         UserDefaults.standard.set(savingData, forKey: saveKey)
         UserDefaults.standard.synchronize()
+        
     }
     
 }
