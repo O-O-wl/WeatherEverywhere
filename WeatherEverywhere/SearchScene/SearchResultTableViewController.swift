@@ -12,18 +12,20 @@ class SearchResultTableViewController: UIViewController {
     
     // MARK: - Properties
     private var searchController: UISearchController!
-    @IBOutlet weak var searchItemTableView: UITableView!
-    
     var localSearch = MKLocalSearch.init(request: MKLocalSearch.Request())
     var locals = [MKMapItem]()
+    // MARK: - IBOutlets
+    @IBOutlet weak var searchItemTableView: UITableView!
 
     
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
+        setupBackButton()
         self.searchItemTableView.dataSource = self
         self.searchItemTableView.delegate = self
+        
     }
     
     private func setupSearchController() {
@@ -36,6 +38,17 @@ class SearchResultTableViewController: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action:#selector(dissmiss))
+        backButton.tintColor = .white
+        self.navigationItem.rightBarButtonItem = backButton
+    }
+    
+    @objc func dissmiss() {
+        self.dismiss(animated: true, completion: {} )
+    }
+    
     
     // MARK: - IBActions
     @IBAction func cancelButtonDidTap(_ sender: Any) {

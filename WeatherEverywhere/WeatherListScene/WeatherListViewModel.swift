@@ -23,6 +23,14 @@ struct WeatherListViewModel: WeatherListViewBindable {
             command(newModels)
         }
     }
+    
+    init(
+        models: [WeatherListModelable] = ModelStore.shared.getCurrentModels(),
+        command: @escaping ([WeatherListModelable]) -> (Void) = { _ in } ) {
+        self.models = models
+        self.command = command
+    }
+    
 }
 
 

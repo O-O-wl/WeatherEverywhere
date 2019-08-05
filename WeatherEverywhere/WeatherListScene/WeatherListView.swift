@@ -23,7 +23,7 @@ class WeatherListController: UITableViewController {
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.navigationBar.isHidden = true
         ModelStore.shared.register(self)
     }
     
@@ -36,12 +36,6 @@ class WeatherListController: UITableViewController {
         
     }
     
-}
-// MARK: - Obeserver
-extension WeatherListController: Observer {
-    func update() {
-        self.tableView.reloadData()
-    }
 }
 // MARK: - DataSource
 extension WeatherListController {
@@ -57,7 +51,7 @@ extension WeatherListController {
         return weatherCell
     }
 }
-// - MARK: Delegate
+// MARK: - Segue Control
 extension WeatherListController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,6 +61,11 @@ extension WeatherListController {
             let next = segue.destination as? WeatherDetailViewController
             else { return }
         next.selectedIndex = index.row
-        
+    }
+}
+// MARK: - Obeserver
+extension WeatherListController: Observer {
+    func update() {
+        self.tableView.reloadData()
     }
 }

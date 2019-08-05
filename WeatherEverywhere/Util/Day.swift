@@ -36,7 +36,8 @@ enum Day: Int, Textable {
     init(_ unixTime: TimeInterval) {
         let date = Date.init(timeIntervalSince1970: unixTime)
         let dayIndex = Calendar.current.component(.day, from: date)
-        self = Day(rawValue: dayIndex) ?? .sunday
+        
+        self = Day(rawValue: dayIndex%7) ?? .sunday
     }
     
 }
