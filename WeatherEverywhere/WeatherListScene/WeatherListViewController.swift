@@ -19,6 +19,7 @@ class WeatherListController: UITableViewController {
     @IBOutlet weak var celsiusDegreeBarButton: UIButton!
     @IBOutlet weak var fahrenheitDegreeBarButton: UIButton!
     @IBOutlet weak var remainerView: UIView!
+    @IBOutlet weak var stateLabel: UILabel!
     
     // MARK: - Methods
     override func viewDidLoad() {
@@ -28,8 +29,10 @@ class WeatherListController: UITableViewController {
         ModelStore.shared.register(self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
          celsiusButtonDidTap(self)
+        
     }
     
     // MARK: - IBActions
@@ -41,7 +44,6 @@ class WeatherListController: UITableViewController {
     }
     
     @IBAction func fahrenheitButtonDidTap(_ sender: Any) {
-        
         self.weathers.forEach {
             ($0.temperature as? Temperature)?.convert(to: .fahrenheit)
         }
@@ -53,12 +55,14 @@ class WeatherListController: UITableViewController {
 extension WeatherListController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        stateLabel.text = weathers.isEmpty ? "지역을 등록해주세요." : "⛅️"
         return weathers.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let weatherCell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.reuseID, for: indexPath) as? WeatherCell else { return WeatherCell() }
+            let weatherCell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.reuseID, for: indexPath) as? WeatherCell
+            else { return WeatherCell() }
         weatherCell.sync(model: weathers[indexPath.row])
         return weatherCell
     }

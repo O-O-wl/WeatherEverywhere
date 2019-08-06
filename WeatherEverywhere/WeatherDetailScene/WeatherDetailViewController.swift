@@ -41,6 +41,11 @@ class WeatherDetailViewController: UIViewController {
         hourlyWeathersCollectionView.delegate = hourlyWeatherController
         currentWeatherDetailTableView.dataSource = currentDetailController
     }
+ 
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        ModelStore.shared.remove(self)
+    }
    
     func sync() {
         locationLabel.text = model.location?.description
