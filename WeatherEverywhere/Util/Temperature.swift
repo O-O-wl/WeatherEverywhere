@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Temperature: Textable {
+class Temperature: Textable {
     // MARK: - Properties
     private var value: Double
     private var degree: Degree
+    private static var symbol: String = "º"
     
     var description: String {
-        let valueString = String(format: "%.1f", value)
-        return valueString
+        return "\(Int(value))\(Temperature.symbol)"
     }
     
     // MARK: - Methods
@@ -24,10 +24,9 @@ struct Temperature: Textable {
         self.degree = degree
     }
     
-    mutating func convert(to another: Degree) -> Temperature {
+    func convert(to another: Degree) {
         self.value = self.degree.converting(to: another)(self.value)
         self.degree = another
-        return self
     }
     
 }
@@ -54,7 +53,7 @@ extension Temperature {
         }
         
         // MARK: - Methods
-        func converting(to: Degree) -> (Double) -> Double {
+        func converting(to : Degree) -> (Double) -> Double {
             switch (self,to) {
             case (.celsius,.fahrenheit):
                 return { c in (c * 1.8) + 32 }

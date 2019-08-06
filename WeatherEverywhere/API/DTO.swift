@@ -9,7 +9,7 @@ import Foundation
 
 
 // MARK: - ForcastDTO
-struct ApiDTO: Codable {
+struct ApiDTO: Decodable {
     let latitude, longitude: Double
     let timezone: String
     let currently: WeatherDTO
@@ -17,7 +17,7 @@ struct ApiDTO: Codable {
     let daily: WeathersDTO
 }
 // MARK: - ResourceName
-enum IconDTO: String, Codable {
+enum IconDTO: String, Decodable {
     
     case clearDay = "clear-day"
     case cloudy = "cloudy"
@@ -33,7 +33,7 @@ enum IconDTO: String, Codable {
 }
 
 // MARK: - WeatherDTO
-struct WeatherDTO: Codable {
+struct WeatherDTO: Decodable {
     let icon: IconDTO?
     let time: Double
     let summary: String
@@ -58,6 +58,6 @@ struct WeatherDTO: Codable {
 }
 
 // MARK: - WeathersDTO
-struct WeathersDTO: Codable {
+struct WeathersDTO: Decodable {
     let data: [WeatherDTO]
 }

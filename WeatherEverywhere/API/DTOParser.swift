@@ -11,6 +11,7 @@ import Foundation
 struct DTOParser {
     
     static func parse(apiDTO: ApiDTO, title: String) -> ForcastModelable {
+        let timeZone = apiDTO.timezone.timeZone
         let location = LocationModel(
             title: title,
             latitude: apiDTO.latitude,
@@ -19,28 +20,28 @@ struct DTOParser {
         let forcastModel = WeatherModel(
             location: location,
             wallPaper: apiDTO.currently.icon,
-            current: parse(currentDTO: apiDTO.currently, location: location),
-            daily: apiDTO.daily.data.map { parse(dailyDTO: $0) },
-            hourly: apiDTO.hourly.data.map { parse(hourlyDTO: $0) }
+            current: parse(currentDTO: apiDTO.currently, location: location, timeZone: timeZone, currentDay: apiDTO.daily.data[0]),
+            daily: apiDTO.daily.data.map { parse(dailyDTO: $0, timeZone: timeZone) },
+            hourly: apiDTO.hourly.data.map { parse(hourlyDTO: $0, timeZone: timeZone) }
         )
         return forcastModel
     }
     
-    static func parse(currentDTO: WeatherDTO, location: LocationModel) -> CurrentWeatherModelable {
+    static func parse(currentDTO: WeatherDTO, location: LocationModel, timeZone: TimeZone, currentDay: WeatherDTO ) -> CurrentWeatherModelable {
         let currentModel = WeatherModel(
             location: location,
             icon: currentDTO.icon,
             wallPaper: currentDTO.icon,
-            time: Time(currentDTO.time),
-            day: Day(currentDTO.time),
+            time: Time(currentDTO.time, timeZone: timeZone),
+            day: Day(currentDTO.time, timeZone: timeZone),
             summary: Summary(currentDTO.summary),
-            sunriseTime: Time(currentDTO.sunriseTime ?? 0),
-            sunsetTime: Time(currentDTO.sunsetTime ?? 0),
+            sunriseTime: Time(currentDay.sunriseTime ?? 0, timeZone: timeZone),
+            sunsetTime: Time(currentDay.sunsetTime ?? 0, timeZone: timeZone),
             precipIntensity: Precipitation(currentDTO.precipIntensity),
             precipProbability: Persentage(currentDTO.precipProbability),
             humidity: Persentage(currentDTO.humidity),
             pressure: Pressure(currentDTO.pressure),
-            wind: Wind(speed: currentDTO.windSpeed, bearing: currentDTO.windBearing),
+            wind: Wind(speed: currentDTO.windSpeed, bearing: currentDTO.windBearing ),
             uv: UV(currentDTO.uvIndex),
             visibility: Visibility(currentDTO.visibility),
             temperature: Temperature(currentDTO.temperature ?? 0),
@@ -51,19 +52,20 @@ struct DTOParser {
         return currentModel
     }
     
-    static func parse(hourlyDTO: WeatherDTO) -> HourlyWeatherModelable {
+    static func parse(hourlyDTO: WeatherDTO, timeZone: TimeZone) -> HourlyWeatherModelable {
         let hourlyModel = WeatherModel(
             icon: hourlyDTO.icon,
-            time: Time(hourlyDTO.time),
+            time: Time(hourlyDTO.time, timeZone: timeZone),
+            day: Day.init(hourlyDTO.time, timeZone: timeZone),
             temperature: Temperature(hourlyDTO.temperature ?? 0)
         )
         return hourlyModel
     }
     
-    static func parse(dailyDTO: WeatherDTO) -> DailyWeatherModelable {
+    static func parse(dailyDTO: WeatherDTO, timeZone: TimeZone) -> DailyWeatherModelable {
         let dailyModel = WeatherModel(
             icon: dailyDTO.icon,
-            day: Day(dailyDTO.time),
+            day: Day(dailyDTO.time, timeZone: timeZone),
             temperatureMax: Temperature(dailyDTO.temperatureMax ?? 0),
             temperatureMin: Temperature(dailyDTO.temperatureMin ?? 0)
         )

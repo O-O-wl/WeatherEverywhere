@@ -15,20 +15,12 @@ protocol WeatherListViewBindable {
 }
 
 struct WeatherListViewModel: WeatherListViewBindable {
-    
     var command: ([WeatherListModelable]) -> Void
     
     var models: [WeatherListModelable] {
         didSet(newModels){
             command(newModels)
         }
-    }
-    
-    init(
-        models: [WeatherListModelable] = ModelStore.shared.getCurrentModels(),
-        command: @escaping ([WeatherListModelable]) -> (Void) = { _ in } ) {
-        self.models = models
-        self.command = command
     }
     
 }

@@ -11,11 +11,10 @@ import Foundation
 struct Wallpaper: Displayable {
     // MARK: - Properties
     private static let prefix = "bg_"
-    private static let suffix = ".jpg"
     private let resourceName: String
     
     var description: UIImage? {
-        let imageName = Wallpaper.prefix + resourceName + Wallpaper.suffix
+        let imageName = Wallpaper.prefix + resourceName
         return UIImage(named: imageName)
     }
     

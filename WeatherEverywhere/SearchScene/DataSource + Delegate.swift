@@ -21,19 +21,19 @@ extension MKPlacemark {
     
 }
 
-
 // MARK: - + DataSource
 extension SearchResultTableViewController: UITableViewDataSource {
     // MARK: - Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locals.count
+        return searchAutoCompletions?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let row = indexPath.row
-        let currentPlacemark = locals[row].placemark
-        cell.textLabel?.text = currentPlacemark.address
+        
+        cell.textLabel?.text = searchAutoCompletions?[row].title
+        cell.detailTextLabel?.text = searchAutoCompletions?[row].subtitle
         return cell
     }
     
@@ -47,12 +47,29 @@ extension SearchResultTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
-        let place = locals[row].placemark
-        let localModel = LocationModel(
-            title: place.locality ?? "이름 없음",
-            latitude: place.coordinate.latitude,
-            longitude: place.coordinate.longitude
-        )
-        UserDefaultsManager.save(models: [localModel])
+        guard let searchContent = searchAutoCompletions?[row] else { return }
+        let req = MKLocalSearch.Request(completion: searchContent)
+        
+        search(using: req) {
+            res,err  in
+            let placeMark = res?.mapItems[0].placemark
+            let title = placeMark?.locality ?? "---"
+            
+            guard let latitude = placeMark?.coordinate.latitude,
+                let longitude = placeMark?.coordinate.longitude
+                else { return }
+    
+            let loc = LocationModel(title: title,
+                                    latitude: latitude,
+                                    longitude: longitude)
+            
+            WeatherAPI.request(queriable: loc ) {
+                dto in
+                let model = DTOParser.parse(apiDTO: dto, title: loc.description)
+                ModelStore.shared.store(model)
+                self.dissmiss()
+            }
+            self.dissmiss()
+        }
     }
 }

@@ -27,11 +27,9 @@ class UserDefaultsManager {
     }
     
     static func save(models: [LocationModel]) {
-        
         let savingData = try? PropertyListEncoder().encode(models)
         UserDefaults.standard.set(savingData, forKey: saveKey)
         UserDefaults.standard.synchronize()
-        
     }
     
 }

@@ -70,6 +70,35 @@ class ModelStore: NSObject {
         notify()
     }
     
+    func load() {
+        ModelStore.shared.models.removeAll()
+        print("Update")
+        UserDefaultsManager.setUp(complete: {
+            location in
+            WeatherAPI.request(queriable: location) {
+                dto in
+                let model = DTOParser.parse(apiDTO: dto, title: location.description)
+                ModelStore.shared.store(model)
+            }
+        })
+    }
+    
+    @objc func update() {
+        print("=============================")
+        print("             업데이트")
+        print("=============================")
+        
+        for index in 0..<models.count {
+            guard let location = models[index].location else { return }
+            WeatherAPI.request(queriable: location) {
+                dto in
+                self.models[index] = DTOParser.parse(apiDTO: dto, title: location.description )
+                self.notify()
+            }
+        }
+    }
+    
+    
 }
 // MARK: - Subject
 extension ModelStore: Subject {

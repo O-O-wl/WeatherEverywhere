@@ -1,11 +1,10 @@
 //
-//  DailyWeatherTableView.swift
+//  HourlyWeathersController.swift
 //  WeatherEverywhere
 //
-//  Created by 이동영 on 05/08/2019.
+//  Created by 이동영 on 06/08/2019.
 //  Copyright © 2019 부엉이. All rights reserved.
 //
-
 import UIKit
 
 class DailyWeathersController: NSObject {

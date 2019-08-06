@@ -13,7 +13,6 @@ struct WeatherModel: TotalModelable, Saveable {
     
     var location: LocationModel?
     var temperature: Textable?
-    
     var temperatureMax: Textable?
     var temperatureMin: Textable?
     var icon: Displayable?
