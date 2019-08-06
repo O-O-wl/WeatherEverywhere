@@ -53,7 +53,7 @@ extension Temperature {
         }
         
         // MARK: - Methods
-        func converting(to: Degree) -> (Double) -> Double {
+        func converting(to : Degree) -> (Double) -> Double {
             switch (self,to) {
             case (.celsius,.fahrenheit):
                 return { c in (c * 1.8) + 32 }

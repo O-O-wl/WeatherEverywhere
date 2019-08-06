@@ -17,11 +17,9 @@ class SearchResultTableViewController: UIViewController {
     let searchCompleter = MKLocalSearchCompleter()
     var searchAutoCompletions: [MKLocalSearchCompletion]?
     
-    
     // MARK: - IBOutlets
     @IBOutlet weak var searchItemTableView: UITableView!
 
-    
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +50,6 @@ class SearchResultTableViewController: UIViewController {
     @objc func dissmiss() {
         self.dismiss(animated: true, completion: {} )
     }
-    
     
     // MARK: - IBActions
     @IBAction func cancelButtonDidTap(_ sender: Any) {

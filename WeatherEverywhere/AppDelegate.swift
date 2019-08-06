@@ -12,29 +12,22 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var timer: Timer!
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 60, target: ModelStore.shared, selector: #selector(ModelStore.update), userInfo: nil, repeats: true)
+        ModelStore.shared.load()
         return true
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        UserDefaultsManager.setUp(complete: {
-            location in
-            WeatherAPI.request(queriable: location) {
-                dto in
-                let model = DTOParser.parse(apiDTO: dto, title: location.description)
-                ModelStore.shared.store(model)
-            }
-        })
-        
+        //ModelStore.shared.update()
         return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -46,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        DispatchQueue.global().async {
+            self.timer.fire()
+        }
+        
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

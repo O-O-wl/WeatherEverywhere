@@ -41,7 +41,7 @@ struct DTOParser {
             precipProbability: Persentage(currentDTO.precipProbability),
             humidity: Persentage(currentDTO.humidity),
             pressure: Pressure(currentDTO.pressure),
-            wind: Wind(speed: currentDTO.windSpeed, bearing: currentDTO.windBearing ?? 0),
+            wind: Wind(speed: currentDTO.windSpeed, bearing: currentDTO.windBearing ),
             uv: UV(currentDTO.uvIndex),
             visibility: Visibility(currentDTO.visibility),
             temperature: Temperature(currentDTO.temperature ?? 0),
