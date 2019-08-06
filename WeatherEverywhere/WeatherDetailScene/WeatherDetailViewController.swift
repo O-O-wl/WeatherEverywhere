@@ -27,12 +27,13 @@ class WeatherDetailViewController: UIViewController {
     lazy var dailyWeatherController = DailyWeathersController(dailyWeathers: model.daily?.compactMap{ $0 } ?? [])
     
     lazy var hourlyWeatherController = HourlyWeathersController(hourlyWeathers: model.hourly?.compactMap{ $0 } ?? [])
-    lazy var currentDetailController = CurrentWeatherDetailDataSource(currentWeather: model.current)
+    lazy var currentDetailController = CurrentWeatherDetailController(currentWeather: model.current)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ModelStore.shared.register(self)
         sync()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
         dailyWeathersTableView.dataSource = dailyWeatherController
         dailyWeathersTableView.delegate = dailyWeatherController
@@ -58,14 +59,5 @@ extension WeatherDetailViewController: Observer {
     func update() {
         sync()
     }
-    /// - Todo: 콜렉션 레이아웃 버그
-    func test() {
-        let layout = UICollectionViewFlowLayout()
-        let side = self.hourlyWeathersCollectionView.frame.height
-        layout.estimatedItemSize = CGSize(width: side, height: side)
-        layout.scrollDirection = .horizontal
-        self.hourlyWeathersCollectionView.collectionViewLayout = layout
-    }
-    
     
 }

@@ -56,6 +56,7 @@ struct DTOParser {
         let hourlyModel = WeatherModel(
             icon: hourlyDTO.icon,
             time: Time(hourlyDTO.time, timeZone: timeZone),
+            day: Day.init(hourlyDTO.time, timeZone: timeZone),
             temperature: Temperature(hourlyDTO.temperature ?? 0)
         )
         return hourlyModel

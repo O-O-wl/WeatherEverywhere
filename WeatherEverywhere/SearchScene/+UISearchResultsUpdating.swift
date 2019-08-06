@@ -36,4 +36,14 @@ extension SearchResultTableViewController {
             complete()
         }
     }
+    
+    func currentLocation() -> LocationModel {
+        let currentLocation = MKUserLocation.init()
+        
+        return LocationModel.init(
+            title: currentLocation.title ?? "---",
+            latitude: currentLocation.coordinate.latitude,
+            longitude: currentLocation.coordinate.longitude)
+    }
+    
 }

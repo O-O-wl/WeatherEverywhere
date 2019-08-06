@@ -15,7 +15,6 @@ protocol WeatherListViewBindable {
 }
 
 struct WeatherListViewModel: WeatherListViewBindable {
-    
     var command: ([WeatherListModelable]) -> Void
     
     var models: [WeatherListModelable] {

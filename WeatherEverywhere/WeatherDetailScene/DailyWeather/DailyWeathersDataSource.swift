@@ -6,36 +6,36 @@
 //  Copyright © 2019 부엉이. All rights reserved.
 //
 
-import UIKit
-
-class DailyWeathersController2: NSObject {
-    
-    var dailyWeathers: [DailyWeatherModelable]
-    
-    init(dailyWeathers models: [DailyWeatherModelable]) {
-        self.dailyWeathers = models
-    }
-    
-}
-// MARK: - DataSource
-extension DailyWeathersController2: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dailyWeathers.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "dailyWeatherCell", for: indexPath)
-        
-        guard let dailyCell = cell as? DailyWeatherCell else {
-            return cell
-        }
-        dailyCell.sync(model: dailyWeathers[indexPath.row])
-        return dailyCell
-    }
-    
-    
-}
-// MARK: - Delegate
-extension DailyWeathersController2: UITableViewDelegate {
-    
-}
+//import UIKit
+//
+//class DailyWeathersController2: NSObject {
+//    
+//    var dailyWeathers: [DailyWeatherModelable]
+//    
+//    init(dailyWeathers models: [DailyWeatherModelable]) {
+//        self.dailyWeathers = models
+//    }
+//    
+//}
+//// MARK: - DataSource
+//extension DailyWeathersController2: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.dailyWeathers.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "dailyWeatherCell", for: indexPath)
+//        
+//        guard let dailyCell = cell as? DailyWeatherCell else {
+//            return cell
+//        }
+//        dailyCell.sync(model: dailyWeathers[indexPath.row])
+//        return dailyCell
+//    }
+//    
+//    
+//}
+//// MARK: - Delegate
+//extension DailyWeathersController2: UITableViewDelegate {
+//    
+//}

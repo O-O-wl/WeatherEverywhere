@@ -51,6 +51,7 @@ protocol CurrentWeatherModelable: WeatherListModelable {
 
 // - MARK: - HourlyWeatherModelable
 protocol HourlyWeatherModelable {
+    var day: Textable? { get }
     var time: Textable? { get }
     var icon: Displayable? { get }
     var temperature: Textable? { get }

@@ -48,11 +48,10 @@ extension SearchResultTableViewController: UITableViewDelegate {
         let row = indexPath.row
         let place = locals[row].placemark
         let localModel = LocationModel(
-            title: place.locality ?? "이름 없음",
+            title: place.locality ?? "---",
             latitude: place.coordinate.latitude,
             longitude: place.coordinate.longitude
         )
-        //UserDefaultsManager.save(models: [localModel])
         
         WeatherAPI.request(queriable: localModel) {
             dto in

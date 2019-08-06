@@ -24,16 +24,28 @@ class WeatherListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+        self.tableView.allowsSelectionDuringEditing = true
         ModelStore.shared.register(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+         celsiusButtonDidTap(self)
     }
     
     // MARK: - IBActions
     @IBAction func celsiusButtonDidTap(_ sender: Any) {
-        
+        self.weathers.forEach {
+            ($0.temperature as? Temperature)?.convert(to: .celsius)
+        }
+        self.tableView.reloadData()
     }
     
     @IBAction func fahrenheitButtonDidTap(_ sender: Any) {
         
+        self.weathers.forEach {
+            ($0.temperature as? Temperature)?.convert(to: .fahrenheit)
+        }
+        self.tableView.reloadData()
     }
     
 }
@@ -49,6 +61,17 @@ extension WeatherListController {
             let weatherCell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.reuseID, for: indexPath) as? WeatherCell else { return WeatherCell() }
         weatherCell.sync(model: weathers[indexPath.row])
         return weatherCell
+    }
+}
+// MARK: - Delegate
+extension WeatherListController {
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.isEditing = true
     }
 }
 // MARK: - Segue Control

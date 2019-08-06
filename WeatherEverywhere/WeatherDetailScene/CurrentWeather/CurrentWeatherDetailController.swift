@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrentWeatherDetailDataSource: NSObject , UITableViewDataSource {
+class CurrentWeatherDetailController: NSObject , UITableViewDataSource {
     
     var currentWeather: CurrentWeatherModelable?
     
@@ -17,7 +17,7 @@ class CurrentWeatherDetailDataSource: NSObject , UITableViewDataSource {
     }
 }
 // MARK: - UITableViewDataSource
-extension CurrentWeatherDetailDataSource {
+extension CurrentWeatherDetailController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
