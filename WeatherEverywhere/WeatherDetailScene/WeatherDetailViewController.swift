@@ -40,12 +40,23 @@ class WeatherDetailViewController: UIViewController {
         hourlyWeathersCollectionView.dataSource = hourlyWeatherController
         hourlyWeathersCollectionView.delegate = hourlyWeatherController
         currentWeatherDetailTableView.dataSource = currentDetailController
+        setupBorder()
     }
- 
     
     override func viewWillDisappear(_ animated: Bool) {
         ModelStore.shared.remove(self)
     }
+    
+    func setupBorder() {
+        
+        dailyWeathersTableView.layer.borderColor = UIColor.gray.cgColor
+        dailyWeathersTableView.layer.borderWidth = 1
+        hourlyWeathersCollectionView.layer.borderColor = UIColor.gray.cgColor
+        hourlyWeathersCollectionView.layer.borderWidth = 1
+        currentWeatherDetailTableView.layer.borderColor = UIColor.gray.cgColor
+        currentWeatherDetailTableView.layer.borderWidth = 1
+    }
+    
    
     func sync() {
         locationLabel.text = model.location?.description

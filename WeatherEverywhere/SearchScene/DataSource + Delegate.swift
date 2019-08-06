@@ -31,7 +31,6 @@ extension SearchResultTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let row = indexPath.row
-        
         cell.textLabel?.text = searchAutoCompletions?[row].title
         cell.detailTextLabel?.text = searchAutoCompletions?[row].subtitle
         return cell
