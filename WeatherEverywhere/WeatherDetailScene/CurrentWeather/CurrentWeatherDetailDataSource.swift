@@ -39,7 +39,7 @@ enum Category:Int {
     
     typealias Detail = (name: String, value: Textable?)
     
-    case sunrise_sunset = 1
+    case sunrise_sunset = 0
     case precipProbability_humidity
     case wind_apparentTemperature
     case precipIntensity_pressure

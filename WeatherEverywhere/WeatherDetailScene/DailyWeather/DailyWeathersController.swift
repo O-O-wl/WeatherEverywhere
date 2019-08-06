@@ -1,14 +1,13 @@
 //
-//  DailyWeatherTableView.swift
+//  HourlyWeathersController.swift
 //  WeatherEverywhere
 //
-//  Created by 이동영 on 05/08/2019.
+//  Created by 이동영 on 06/08/2019.
 //  Copyright © 2019 부엉이. All rights reserved.
 //
-
 import UIKit
 
-class DailyWeathersController2: NSObject {
+class DailyWeathersController: NSObject {
     
     var dailyWeathers: [DailyWeatherModelable]
     
@@ -18,7 +17,7 @@ class DailyWeathersController2: NSObject {
     
 }
 // MARK: - DataSource
-extension DailyWeathersController2: UITableViewDataSource {
+extension DailyWeathersController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dailyWeathers.count
     }
@@ -36,6 +35,6 @@ extension DailyWeathersController2: UITableViewDataSource {
     
 }
 // MARK: - Delegate
-extension DailyWeathersController2: UITableViewDelegate {
+extension DailyWeathersController: UITableViewDelegate {
     
 }

@@ -8,7 +8,11 @@
 
 import Foundation
 
-
+extension String {
+    var timeZone: TimeZone {
+        return TimeZone.init(identifier: self) ?? TimeZone.current
+    }
+}
 
 struct Time: Textable {
     // MARK: - Properties
@@ -18,14 +22,14 @@ struct Time: Textable {
     private var meridiem: Meridiem
     
     var description: String {
-        return "\(meridiem) \(hour):\(minute)"
+        return "\(meridiem) \(hour):\(String(format:"%02d",minute))"
     }
     
     // MARK: - Methods
-    init(_ unixTime: TimeInterval) {
+    init(_ unixTime: TimeInterval, timeZone: TimeZone) {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
-        let calendar = Calendar.current
-        
+        var calendar = Calendar.current
+        calendar.timeZone = timeZone
         hour = calendar.component(.hour, from: date)
         self.minute = calendar.component(.minute, from: date)
         self.second = calendar.component(.second, from: date)

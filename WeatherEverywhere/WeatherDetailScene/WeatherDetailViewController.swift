@@ -27,6 +27,7 @@ class WeatherDetailViewController: UIViewController {
     lazy var dailyWeatherController = DailyWeathersController(dailyWeathers: model.daily?.compactMap{ $0 } ?? [])
     
     lazy var hourlyWeatherController = HourlyWeathersController(hourlyWeathers: model.hourly?.compactMap{ $0 } ?? [])
+    lazy var currentDetailController = CurrentWeatherDetailDataSource(currentWeather: model.current)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,7 @@ class WeatherDetailViewController: UIViewController {
         dailyWeathersTableView.delegate = dailyWeatherController
         hourlyWeathersCollectionView.dataSource = hourlyWeatherController
         hourlyWeathersCollectionView.delegate = hourlyWeatherController
+        currentWeatherDetailTableView.dataSource = currentDetailController
     }
     
     func sync() {

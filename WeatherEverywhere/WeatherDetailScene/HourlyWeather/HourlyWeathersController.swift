@@ -1,15 +1,15 @@
 //
-//  HourlyWeatherCollectionView.swift
+//  HourlyWeathersController.swift
 //  WeatherEverywhere
 //
-//  Created by 이동영 on 05/08/2019.
+//  Created by 이동영 on 06/08/2019.
 //  Copyright © 2019 부엉이. All rights reserved.
 //
 
 import UIKit
 
 
-class HourlyWeathersDataSource: NSObject {
+class HourlyWeathersController: NSObject {
     
     var hourlyWeathers: [HourlyWeatherModelable]
     
@@ -18,7 +18,7 @@ class HourlyWeathersDataSource: NSObject {
     }
     
 }
-extension HourlyWeathersDataSource: UICollectionViewDataSource {
+extension HourlyWeathersController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return hourlyWeathers.count
     }
@@ -31,6 +31,6 @@ extension HourlyWeathersDataSource: UICollectionViewDataSource {
     }
     
 }
-extension HourlyWeathersDataSource: UICollectionViewDelegate {
+extension HourlyWeathersController: UICollectionViewDelegate {
     
 }

@@ -33,10 +33,11 @@ enum Day: Int, Textable {
     }
     
     // MARK: - Methods
-    init(_ unixTime: TimeInterval) {
+    init(_ unixTime: TimeInterval, timeZone: TimeZone) {
         let date = Date.init(timeIntervalSince1970: unixTime)
-        let dayIndex = Calendar.current.component(.day, from: date)
-        
+        var calendar = Calendar.current
+        calendar.timeZone = timeZone
+        let dayIndex = Calendar.current.component(.weekday, from: date)
         self = Day(rawValue: dayIndex%7) ?? .sunday
     }
     

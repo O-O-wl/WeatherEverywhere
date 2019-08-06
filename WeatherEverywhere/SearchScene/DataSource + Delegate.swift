@@ -21,7 +21,6 @@ extension MKPlacemark {
     
 }
 
-
 // MARK: - + DataSource
 extension SearchResultTableViewController: UITableViewDataSource {
     // MARK: - Methods
@@ -53,6 +52,14 @@ extension SearchResultTableViewController: UITableViewDelegate {
             latitude: place.coordinate.latitude,
             longitude: place.coordinate.longitude
         )
-        UserDefaultsManager.save(models: [localModel])
+        //UserDefaultsManager.save(models: [localModel])
+        
+        WeatherAPI.request(queriable: localModel) {
+            dto in
+            let model = DTOParser.parse(apiDTO: dto, title: localModel.description)
+            ModelStore.shared.store(model)
+            self.dissmiss()
+        }
+        self.dissmiss()
     }
 }
