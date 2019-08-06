@@ -72,6 +72,7 @@ extension WeatherListController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isEditing = true
+        ModelStore.shared.remove(at: indexPath.row)
     }
 }
 // MARK: - Segue Control

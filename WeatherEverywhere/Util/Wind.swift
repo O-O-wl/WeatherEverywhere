@@ -48,6 +48,7 @@ enum Direction: Int, Textable {
     
     // MARK: - Cases
     case NO = -1
+    
     case N
     case NNE
     case NE

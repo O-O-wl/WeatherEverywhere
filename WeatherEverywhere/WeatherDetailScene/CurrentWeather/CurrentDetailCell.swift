@@ -32,6 +32,7 @@ class CurrentDetailCell: UITableViewCell {
     func sync(_ category: Category,_ model: CurrentWeatherModelable) {
         firstDetailNameLabel.text = category.first(model: model).name
         firstDetailValueLabel.text = category.first(model: model).value?.description
+        
         secondDetailNameLabel.text = category.second(model: model).name
         secondDetailValueLabel.text = category.second(model: model).value?.description
     }

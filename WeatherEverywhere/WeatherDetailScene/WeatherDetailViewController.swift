@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreGraphics
 
 class WeatherDetailViewController: UIViewController {
     
@@ -25,7 +26,6 @@ class WeatherDetailViewController: UIViewController {
     }
     
     lazy var dailyWeatherController = DailyWeathersController(dailyWeathers: model.daily?.compactMap{ $0 } ?? [])
-    
     lazy var hourlyWeatherController = HourlyWeathersController(hourlyWeathers: model.hourly?.compactMap{ $0 } ?? [])
     lazy var currentDetailController = CurrentWeatherDetailController(currentWeather: model.current)
     
@@ -41,7 +41,7 @@ class WeatherDetailViewController: UIViewController {
         hourlyWeathersCollectionView.delegate = hourlyWeatherController
         currentWeatherDetailTableView.dataSource = currentDetailController
     }
-    
+   
     func sync() {
         locationLabel.text = model.location?.description
         summaryLabel.text = model.current?.summary?.description

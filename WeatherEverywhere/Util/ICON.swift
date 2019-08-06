@@ -10,11 +10,10 @@ import Foundation
 
 struct ICON: Displayable {
     // MARK: - Properties
-    private static let suffix: String = ".png"
-    let resourceName: String
+   let resourceName: String
     
     var description: UIImage? {
-        let imageName = resourceName + ICON.suffix
+        let imageName = resourceName
         return UIImage(named: imageName)
     }
     

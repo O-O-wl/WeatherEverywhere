@@ -12,8 +12,12 @@ class SearchResultTableViewController: UIViewController {
     
     // MARK: - Properties
     private var searchController: UISearchController!
+    
     var localSearch = MKLocalSearch.init(request: MKLocalSearch.Request())
-    var locals = [MKMapItem]()
+    let searchCompleter = MKLocalSearchCompleter()
+    var searchAutoCompletions: [MKLocalSearchCompletion]?
+    
+    
     // MARK: - IBOutlets
     @IBOutlet weak var searchItemTableView: UITableView!
 
@@ -25,13 +29,13 @@ class SearchResultTableViewController: UIViewController {
         setupBackButton()
         self.searchItemTableView.dataSource = self
         self.searchItemTableView.delegate = self
-        
+        self.searchCompleter.delegate = self
     }
     
     private func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Search"
         searchController.searchBar.barStyle = .blackTranslucent
         searchController.searchBar.barTintColor = .white
