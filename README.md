@@ -41,9 +41,11 @@
 
 ![userDefault](https://user-images.githubusercontent.com/39197978/62603451-e6027400-b930-11e9-896c-2382f3bbb76b.gif)
 
-- **`기상예측 정보 예측`**
 
-  ![디테일화면](https://user-images.githubusercontent.com/39197978/62604027-1f87af00-b932-11e9-944f-c6ab71314860.gif)
+- **` 정보 예측`**
+
+![세부사항](https://user-images.githubusercontent.com/39197978/62699417-6f41a580-ba1a-11e9-8c79-89d5ba7a1b24.gif)
+
 
 - **`사용자 지정 로컬 탐색, 사용자 지정 로컬 삭제`**
 
